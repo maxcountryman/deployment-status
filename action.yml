@@ -4,14 +4,23 @@ author: "chrnorm"
 inputs:
   state:
     description: "State for the deployment"
+    required: true
   token:
     description: "Github repository token"
-  target-url:
+    required: true
+  target_url:
     description: "Target url location"
+    required: false
   description:
     description: "Descriptive message about the deployment"
+    required: false
   deployment_id:
     description: "The ID of the deployment"
+    required: true
+  environment_url:
+    description: "Environment URL"
+    required: false
+    default: ""
 runs:
   using: "node12"
-  main: "lib/main.js"
+  main: "dist/index.js"
