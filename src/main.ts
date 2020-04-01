@@ -16,7 +16,7 @@ async function run() {
     const defaultUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
 
     const token = core.getInput("token", { required: true });
-    const url = core.getInput("target_url", { required: false }) || defaultUrl;
+    const targetUrl = core.getInput("target_url", { required: false }) || defaultUrl;
     const description = core.getInput("description", { required: false }) || "";
     const deploymentId = core.getInput("deployment_id");
     const environmentUrl = core.getInput("environment_url", { required: false }) || "";
@@ -27,11 +27,11 @@ async function run() {
     await client.repos.createDeploymentStatus({
       ...context.repo,
       deployment_id: parseInt(deploymentId),
-      state,
-      log_url: defaultUrl,
-      target_url: url,
       description,
-      environment_url: environmentUrl
+      environment_url: environmentUrl,
+      log_url: targetUrl,
+      state,
+      target_url: targetUrl,
     });
   } catch (error) {
     core.error(error);
